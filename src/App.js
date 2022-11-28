@@ -4,6 +4,8 @@ import { initializeApp } from "firebase/app";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useEffect } from "react";
+
+// For some reason the .env file references were interfering with the firebase connection
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_apiKey,
 //   authDomain: process.env.REACT_APP_authDomain,
@@ -12,6 +14,7 @@ import { useEffect } from "react";
 //   messagingSenderId: process.env.REACT_APP_messagingSenderId,
 //   appId: process.env.REACT_APP_appId,
 // };
+
 const firebaseConfig = {
   apiKey: "AIzaSyAllAim2pin7FeCp_v5GRFg4WQv1iboObI",
   authDomain: "workout-tracker-2d69d.firebaseapp.com",
