@@ -27,12 +27,21 @@ function WorkoutHeading() {
 }
 
 function Workout(props) {
-  const data = props.workoutData;
+  const data =
+    props.workoutData !== undefined
+      ? props.workoutData
+      : {
+          exercise: "",
+          sets: "",
+          weight: "",
+        };
   console.log(data);
   return (
     <Container>
       <h4>
-        {data === undefined ? "" : data.timestamp.toDate().toDateString()}
+        {data.timestamp === undefined
+          ? ""
+          : data.timestamp.toDate().toDateString()}
       </h4>
       <WorkoutHeading />
       <Exercise
