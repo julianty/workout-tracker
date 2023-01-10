@@ -1,5 +1,8 @@
 import Workout from "../components/Workout";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -30,7 +33,14 @@ function Tool(props) {
 
   return (
     <Container>
-      <Workout workoutData={testData} />
+      <Row className="mt-2">
+        <Workout workoutData={testData} />
+      </Row>
+      <Row className="mt-2">
+        <Col className="col-3">
+          <Button>Add workout</Button>
+        </Col>
+      </Row>
     </Container>
   );
 }
