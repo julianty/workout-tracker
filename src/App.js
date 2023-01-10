@@ -35,16 +35,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function App() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const docRef = doc(db, "test", "testDoc");
-      const testDoc = await getDoc(docRef);
-      if (testDoc.exists()) {
-        console.log(testDoc.data());
-      }
-    };
-    fetchData().catch(console.err);
-  }, []);
   return (
     <div className="App">
       <Navbar></Navbar>
@@ -52,7 +42,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="/tool" element={<Tool />} />
+        <Route path="/tool" element={<Tool db={db} />} />
       </Routes>
     </div>
   );
