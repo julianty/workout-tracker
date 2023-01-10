@@ -1,10 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { initializeApp } from "firebase/app";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useEffect } from "react";
 
+import Navbar from "./components/navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Catalog from "./pages/Catalog";
+import Tool from "./pages/Tool";
 // For some reason the .env file references were interfering with the firebase connection
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_apiKey,
@@ -40,20 +47,13 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/tool" element={<Tool />} />
+      </Routes>
     </div>
   );
 }
