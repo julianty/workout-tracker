@@ -38,11 +38,15 @@ function Tool(props) {
       </Row>
       <Row className="mt-2">
         <Col className="col-3">
-          <Button>Add workout</Button>
+          <Button onClick={addWorkout}>Add workout</Button>
         </Col>
       </Row>
     </Container>
   );
+}
+
+function addWorkout() {
+  console.log("add workout");
 }
 
 export default Tool;
