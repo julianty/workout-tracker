@@ -23,19 +23,22 @@ function Tool(props) {
   }, [props.db]);
 
   useEffect(() => {
-    if (testData !== undefined) {
-      var t = new Date(1970, 0, 0);
-      t.setSeconds(testData.timestamp.seconds);
-      console.log(testData.timestamp.toDate().toDateString());
-      // console.log(t);
-    }
+    if (testData === undefined) return;
+    // console.log(testData);
   }, [testData]);
+
+  function generateWorkoutDOM(testData) {
+    if (testData === undefined) return;
+    let workouts = [];
+    for (const [key, value] of Object.entries(testData)) {
+      workouts.push(<Workout workoutData={value}></Workout>);
+    }
+    return workouts;
+  }
 
   return (
     <Container>
-      <Row className="mt-2">
-        <Workout workoutData={testData} />
-      </Row>
+      <Row className="mt-2">{generateWorkoutDOM(testData)}</Row>
       <Row className="mt-2">
         <Col className="col-3">
           <Button onClick={addWorkout}>Add workout</Button>

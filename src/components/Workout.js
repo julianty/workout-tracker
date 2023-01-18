@@ -1,14 +1,16 @@
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 function Exercise(props) {
+  const exerciseData = props.exerciseData;
   return (
     <Row>
-      <Col>{props.exercise}</Col>
-      <Col>{props.sets}</Col>
-      <Col>{props.reps}</Col>
-      <Col>{props.weight}</Col>
+      <Col>{exerciseData.exercise}</Col>
+      <Col>{exerciseData.sets}</Col>
+      <Col>{exerciseData.reps}</Col>
+      <Col>{exerciseData.weight}</Col>
     </Row>
   );
 }
@@ -25,29 +27,17 @@ function WorkoutHeading() {
 }
 
 function Workout(props) {
-  const data =
-    props.workoutData !== undefined
-      ? props.workoutData
-      : {
-          exercise: "",
-          sets: "",
-          weight: "",
-        };
-  console.log(data);
+  const data = props.workoutData;
+  const timestamp = new Date(data.timestamp);
+  const exercisesArr = data.exercises;
   return (
     <Container>
-      <h4>
-        {data.timestamp === undefined
-          ? ""
-          : data.timestamp.toDate().toDateString()}
-      </h4>
+      <h4>{timestamp.toDateString()}</h4>
       <WorkoutHeading />
-      <Exercise
-        exercise={data.exercise}
-        sets={data.sets}
-        reps={data.reps}
-        weight={data.weight}
-      />
+      {exercisesArr.map((exerciseData) => (
+        <Exercise exerciseData={exerciseData} />
+      ))}
+      <Button>Add exercise</Button>
     </Container>
   );
 }
