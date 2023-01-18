@@ -15,14 +15,12 @@ function Exercise(props) {
 
 function WorkoutHeading() {
   return (
-    <Container>
-      <Row>
-        <Col>Exercise</Col>
-        <Col>Sets</Col>
-        <Col>Reps</Col>
-        <Col>Weight</Col>
-      </Row>
-    </Container>
+    <Row>
+      <Col>Exercise</Col>
+      <Col>Sets</Col>
+      <Col>Reps</Col>
+      <Col>Weight</Col>
+    </Row>
   );
 }
 
