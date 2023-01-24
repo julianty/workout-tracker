@@ -6,6 +6,9 @@ import Button from "react-bootstrap/Button";
 
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+
+import uniqid from "uniqid";
+
 // Read data from database to populate tool
 
 function Tool(props) {
@@ -30,8 +33,8 @@ function Tool(props) {
   function generateWorkoutDOM(testData) {
     if (testData === undefined) return;
     let workouts = [];
-    for (const [key, value] of Object.entries(testData)) {
-      workouts.push(<Workout workoutData={value}></Workout>);
+    for (const value of Object.values(testData)) {
+      workouts.push(<Workout workoutData={value} key={uniqid()}></Workout>);
     }
     return workouts;
   }
