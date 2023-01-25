@@ -2,9 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { collection } from "firebase/firestore";
-import { useEffect } from "react";
 
 import Navbar from "./components/navbar";
 import { Route, Routes } from "react-router-dom";
@@ -34,8 +31,8 @@ const firebaseConfig = {
   appId: "1:781275830167:web:be75eaac33474c22d656d2",
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
 function App() {
   uploadTestData();
@@ -46,10 +43,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="/tool" element={<Tool db={db} />} />
+        <Route path="/tool" element={<Tool />} />
       </Routes>
     </div>
   );
 }
 
+export const firebaseApp = initializeApp(firebaseConfig);
 export default App;
