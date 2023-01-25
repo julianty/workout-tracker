@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { firebaseApp } from "../../App";
-import { doc, getDoc, getFirestore, collection } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 export const workoutsSlice = createSlice({
   name: "workouts",
