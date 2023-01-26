@@ -4,8 +4,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import uniqid from "uniqid";
 
