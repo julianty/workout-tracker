@@ -14,9 +14,18 @@ function Tool(props) {
 
   function generateWorkoutDOM(data = firestoreData) {
     let sessions = [];
-    Object.values(data).forEach((session) => {
-      sessions.push(<Workout workoutData={session} key={uniqid()}></Workout>);
-    });
+    // Object.values(data).forEach((session) => {
+    //   sessions.push(<Workout workoutData={session} key={uniqid()}></Workout>);
+    // });
+    for (const [sessionName, session] of Object.entries(data)) {
+      sessions.push(
+        <Workout
+          name={sessionName}
+          workoutData={session}
+          key={uniqid()}
+        ></Workout>
+      );
+    }
     return sessions;
   }
 

@@ -3,38 +3,59 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-import { useState } from "react";
 import uniqid from "uniqid";
+import { useDispatch } from "react-redux";
 
 function Exercise(props) {
+  let exerciseData = { ...props.exerciseData };
+
+  function onBlur(e) {
+    const field = e.target.dataset.colname;
+    const newValue = e.target.value;
+    exerciseData[field] = newValue;
+    props.onBlur(props.exerciseIdx, exerciseData);
+  }
+
   function EditableInput(props) {
     return (
       <input
         className="form-control-plaintext"
+        data-colname={props.colname}
         type={props.type}
-        onChange={changeHandler}
+        onBlur={onBlur}
         defaultValue={props.defaultValue}
       ></input>
     );
   }
-  function changeHandler(e) {
-    // TODO: on change, save data to firestore
-    console.log(e);
-  }
-  const exerciseData = props.exerciseData;
   return (
     <Row>
       <Col>
-        <EditableInput type="text" defaultValue={exerciseData.exercise} />
+        <EditableInput
+          type="text"
+          colname="exercise"
+          defaultValue={exerciseData.exercise}
+        />
       </Col>
       <Col>
-        <EditableInput type="number" defaultValue={exerciseData.sets} />
+        <EditableInput
+          type="number"
+          colname="sets"
+          defaultValue={exerciseData.sets}
+        />
       </Col>
       <Col>
-        <EditableInput type="number" defaultValue={exerciseData.reps} />
+        <EditableInput
+          type="number"
+          colname="reps"
+          defaultValue={exerciseData.reps}
+        />
       </Col>
       <Col>
-        <EditableInput type="number" defaultValue={exerciseData.weight} />
+        <EditableInput
+          type="number"
+          colname="weight"
+          defaultValue={exerciseData.weight}
+        />
       </Col>
     </Row>
   );
@@ -54,29 +75,35 @@ function WorkoutHeading() {
 function Workout(props) {
   const data = props.workoutData;
   const timestamp = new Date(data.timestamp);
-
-  const [exercisesArr, setExercisesArr] = useState(data.exercises);
-  // const exercisesArr = data.exercises;
+  const exercisesArr = data.exercises;
+  const dispatch = useDispatch();
 
   function addNewExercise() {
-    // console.log("add new exercise");
-    // console.log(typeof exercisesArr);
-    const exercisesArrCopy = [...exercisesArr];
-    exercisesArrCopy.push({
-      exercise: "Click to edit",
-      reps: "0",
-      sets: "0",
-      weight: "0",
+    dispatch({ type: "workouts/addExercise", payload: { name: props.name } });
+  }
+
+  function onBlur(exerciseIdx, exerciseData) {
+    dispatch({
+      type: "workouts/updateWorkouts",
+      payload: {
+        sessionName: props.name,
+        exerciseIdx: exerciseIdx,
+        exerciseData: exerciseData,
+      },
     });
-    setExercisesArr(exercisesArrCopy);
   }
 
   return (
     <Container>
       <h4>{timestamp.toDateString()}</h4>
       <WorkoutHeading />
-      {exercisesArr.map((exerciseData) => (
-        <Exercise exerciseData={exerciseData} key={uniqid()} />
+      {exercisesArr.map((exerciseData, index) => (
+        <Exercise
+          exerciseIdx={index}
+          exerciseData={exerciseData}
+          onBlur={onBlur}
+          key={uniqid()}
+        />
       ))}
       <Button onClick={addNewExercise}>Add exercise</Button>
     </Container>
