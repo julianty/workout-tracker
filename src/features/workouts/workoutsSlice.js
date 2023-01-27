@@ -25,6 +25,15 @@ export const workoutsSlice = createSlice({
         weight: "0",
       };
     },
+    addWorkout: (state) => {
+      const sessionName = `testSession${
+        Object.values(current(state.sessions)).length + 1
+      }`;
+      state.sessions[sessionName] = {
+        timestamp: new Date(Date.now()).toISOString(),
+        exercises: [],
+      };
+    },
     updateWorkouts: (state, action) => {
       const sessionName = action.payload.sessionName;
       const exerciseIdx = action.payload.exerciseIdx;
