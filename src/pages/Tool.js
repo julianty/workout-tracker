@@ -11,7 +11,6 @@ import uniqid from "uniqid";
 
 function Tool(props) {
   const firestoreData = useSelector((state) => state.workouts.sessions);
-
   const dispatch = useDispatch();
   function addWorkout() {
     dispatch({ type: "workouts/addWorkout" });
@@ -19,9 +18,6 @@ function Tool(props) {
 
   function generateWorkoutDOM(data = firestoreData) {
     let sessions = [];
-    // Object.values(data).forEach((session) => {
-    //   sessions.push(<Workout workoutData={session} key={uniqid()}></Workout>);
-    // });
     for (const [sessionName, session] of Object.entries(data)) {
       sessions.push(
         <Workout
