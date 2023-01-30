@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import uniqid from "uniqid";
 import { useDispatch } from "react-redux";
+import store from "../app/store";
 
 function Exercise(props) {
   let exerciseData = { ...props.exerciseData };
@@ -77,19 +78,21 @@ function Workout(props) {
   const timestamp = new Date(data.timestamp);
   const exercisesArr = data.exercises;
   const dispatch = useDispatch();
-
   function addNewExercise() {
     dispatch({ type: "workouts/addExercise", payload: { name: props.name } });
   }
 
   function onBlur(exerciseIdx, exerciseData) {
+    const user = store.getState().auth.user;
+    const payload = {
+      sessionName: props.name,
+      exerciseIdx: exerciseIdx,
+      exerciseData: exerciseData,
+      uid: user.uid,
+    };
     dispatch({
       type: "workouts/updateWorkouts",
-      payload: {
-        sessionName: props.name,
-        exerciseIdx: exerciseIdx,
-        exerciseData: exerciseData,
-      },
+      payload,
     });
   }
 

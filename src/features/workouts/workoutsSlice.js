@@ -40,14 +40,19 @@ export const workoutsSlice = createSlice({
       const exerciseData = action.payload.exerciseData;
       state.sessions[sessionName].exercises[exerciseIdx] = exerciseData;
       const updatedExercises = current(state.sessions[sessionName]);
-      updateWorkouts(sessionName, updatedExercises);
+      updateWorkouts(sessionName, updatedExercises, action.payload.uid);
     },
   },
 });
 
-async function updateWorkouts(sessionName, updatedExercises) {
+async function updateWorkouts(sessionName, updatedExercises, uid) {
   const db = getFirestore(firebaseApp);
-  const docRef = doc(db, "testUserData", "Workouts");
+  let docRef;
+  if (uid === undefined) {
+    docRef = doc(db, "testUserData", "Workouts");
+  } else {
+    docRef = doc(db, "testUserData", uid);
+  }
   const updatedSession = {};
   updatedSession[sessionName] = updatedExercises;
   updateDoc(docRef, updatedSession);
@@ -57,7 +62,13 @@ export const { addSession } = workoutsSlice.actions;
 
 export async function fetchWorkouts(dispatch, getState) {
   const db = getFirestore(firebaseApp);
-  const docRef = doc(db, "testUserData", "Workouts");
+  const user = getState().auth.user;
+  let docRef;
+  if (Object.values(user).length === 0) {
+    docRef = doc(db, "testUserData", "Workouts");
+  } else {
+    docRef = doc(db, "testUserData", user.uid);
+  }
   const response = await getDoc(docRef);
   dispatch({ type: "workouts/fetchWorkouts", payload: response.data() });
 }

@@ -13,6 +13,8 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { firebaseApp } from "./App";
+import store from "./app/store";
+import { fetchWorkouts } from "./features/workouts/workoutsSlice";
 
 export const signInWithGoogle = async () => {
   const db = getFirestore(firebaseApp);
@@ -30,6 +32,9 @@ export const signInWithGoogle = async () => {
         email: user.email,
       });
     }
+    const userData = docs.docs[0].data();
+    store.dispatch({ type: "auth/signIn", payload: { user: userData } });
+    store.dispatch(fetchWorkouts);
   } catch (err) {
     console.log(err);
   }
