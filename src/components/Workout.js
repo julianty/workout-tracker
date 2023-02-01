@@ -19,45 +19,47 @@ function Exercise(props) {
 
   function EditableInput(props) {
     return (
-      <input
+      <EditableInput
         className="form-control-plaintext"
         data-colname={props.colname}
         type={props.type}
         onBlur={onBlur}
         defaultValue={props.defaultValue}
-      ></input>
+      ></EditableInput>
     );
   }
   return (
     <Row>
-      <Col>
-        <EditableInput
+      <form className="d-flex">
+        <input
+          className="form-control-plaintext"
           type="text"
           colname="exercise"
           defaultValue={exerciseData.exercise}
+          onBlur={onBlur}
         />
-      </Col>
-      <Col>
-        <EditableInput
+        <input
+          className="form-control-plaintext"
           type="number"
           colname="sets"
           defaultValue={exerciseData.sets}
+          onBlur={onBlur}
         />
-      </Col>
-      <Col>
-        <EditableInput
+        <input
+          className="form-control-plaintext"
           type="number"
           colname="reps"
           defaultValue={exerciseData.reps}
+          onBlur={onBlur}
         />
-      </Col>
-      <Col>
-        <EditableInput
+        <input
+          className="form-control-plaintext"
           type="number"
           colname="weight"
           defaultValue={exerciseData.weight}
+          onBlur={onBlur}
         />
-      </Col>
+      </form>
     </Row>
   );
 }
