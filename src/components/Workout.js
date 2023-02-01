@@ -2,6 +2,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 import uniqid from "uniqid";
 import { useDispatch } from "react-redux";
@@ -10,45 +11,61 @@ import store from "../app/store";
 function Exercise(props) {
   let exerciseData = { ...props.exerciseData };
 
-  function onBlur(e) {
+  function onChange(e) {
     const field = e.target.dataset.colname;
     const newValue = e.target.value;
     exerciseData[field] = newValue;
-    props.onBlur(props.exerciseIdx, exerciseData);
+    props.onChange(props.exerciseIdx, exerciseData);
   }
   return (
-    <Row>
-      <form className="d-flex">
-        <input
-          className="form-control-plaintext"
-          type="text"
-          data-colname="exercise"
-          defaultValue={exerciseData.exercise}
-          onBlur={onBlur}
-        />
-        <input
-          className="form-control-plaintext"
-          type="number"
-          data-colname="sets"
-          defaultValue={exerciseData.sets}
-          onBlur={onBlur}
-        />
-        <input
-          className="form-control-plaintext"
-          type="number"
-          data-colname="reps"
-          defaultValue={exerciseData.reps}
-          onBlur={onBlur}
-        />
-        <input
-          className="form-control-plaintext"
-          type="number"
-          data-colname="weight"
-          defaultValue={exerciseData.weight}
-          onBlur={onBlur}
-        />
-      </form>
-    </Row>
+    <Form>
+      <Row>
+        <Col>
+          <Form.Select
+            className="form-control-plaintext"
+            data-colname="exercise"
+            defaultValue={exerciseData.exercise}
+            onChange={onChange}
+            list="exerciseDatabaseList"
+          >
+            {["Squat", "Bench Press", "Deadlift"].map((exerciseName, idx) => {
+              return (
+                <option value={`${exerciseName}`} key={uniqid()}>
+                  {exerciseName}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </Col>
+        <Col>
+          <Form.Control
+            // className="form-control-plaintext"
+            type="number"
+            data-colname="sets"
+            defaultValue={exerciseData.sets}
+            onChange={onChange}
+          />
+        </Col>
+        <Col>
+          <Form.Control
+            // className="form-control-plaintext"
+            type="number"
+            data-colname="reps"
+            defaultValue={exerciseData.reps}
+            onChange={onChange}
+          />
+        </Col>
+        <Col>
+          <Form.Control
+            // className="form-control-plaintext"
+            type="number"
+            data-colname="weight"
+            defaultValue={exerciseData.weight}
+            onChange={onChange}
+          />
+        </Col>
+      </Row>
+    </Form>
   );
 }
 
@@ -72,7 +89,7 @@ function Workout(props) {
     dispatch({ type: "workouts/addExercise", payload: { name: props.name } });
   }
 
-  function onBlur(exerciseIdx, exerciseData) {
+  function onChange(exerciseIdx, exerciseData) {
     const user = store.getState().auth.user;
     const payload = {
       sessionName: props.name,
@@ -94,7 +111,7 @@ function Workout(props) {
         <Exercise
           exerciseIdx={index}
           exerciseData={exerciseData}
-          onBlur={onBlur}
+          onChange={onChange}
           key={uniqid()}
         />
       ))}
