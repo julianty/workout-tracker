@@ -16,46 +16,34 @@ function Exercise(props) {
     exerciseData[field] = newValue;
     props.onBlur(props.exerciseIdx, exerciseData);
   }
-
-  function EditableInput(props) {
-    return (
-      <EditableInput
-        className="form-control-plaintext"
-        data-colname={props.colname}
-        type={props.type}
-        onBlur={onBlur}
-        defaultValue={props.defaultValue}
-      ></EditableInput>
-    );
-  }
   return (
     <Row>
       <form className="d-flex">
         <input
           className="form-control-plaintext"
           type="text"
-          colname="exercise"
+          data-colname="exercise"
           defaultValue={exerciseData.exercise}
           onBlur={onBlur}
         />
         <input
           className="form-control-plaintext"
           type="number"
-          colname="sets"
+          data-colname="sets"
           defaultValue={exerciseData.sets}
           onBlur={onBlur}
         />
         <input
           className="form-control-plaintext"
           type="number"
-          colname="reps"
+          data-colname="reps"
           defaultValue={exerciseData.reps}
           onBlur={onBlur}
         />
         <input
           className="form-control-plaintext"
           type="number"
-          colname="weight"
+          data-colname="weight"
           defaultValue={exerciseData.weight}
           onBlur={onBlur}
         />
