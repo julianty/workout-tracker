@@ -3,19 +3,19 @@ const testWorkouts = {
     timestamp: "2023-01-19T00:00:00+0000",
     exercises: [
       {
-        exercise: "squat",
+        exercise: "Squat",
         sets: "3",
         reps: "3",
         weight: 225,
       },
       {
-        exercise: "bench press",
+        exercise: "Bench Press",
         sets: "3",
         reps: "5",
         weight: 185,
       },
       {
-        exercise: "deadlift",
+        exercise: "Deadlift",
         sets: "3",
         reps: "3",
         weight: 315,
@@ -26,19 +26,19 @@ const testWorkouts = {
     timestamp: "2023-01-20T00:00:00+0000",
     exercises: [
       {
-        exercise: "squat",
+        exercise: "Squat",
         sets: "3",
         reps: "3",
         weight: 235,
       },
       {
-        exercise: "bench press",
+        exercise: "Bench Press",
         sets: "3",
         reps: "5",
         weight: 200,
       },
       {
-        exercise: "deadlift",
+        exercise: "Deadlift",
         sets: "3",
         reps: "3",
         weight: 315,
