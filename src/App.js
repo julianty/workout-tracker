@@ -10,8 +10,7 @@ import About from "./pages/About";
 import Catalog from "./pages/Catalog";
 import Tool from "./pages/Tool";
 
-import uploadTestData from "./data/uploadTestData";
-
+import { uploadTestData, uploadExerciseCatalog } from "./data/uploadTestData";
 // For some reason the .env file references were interfering with the firebase connection
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_apiKey,
@@ -32,9 +31,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
 
 function App() {
+  uploadExerciseCatalog();
   uploadTestData();
   return (
     <div className="App">

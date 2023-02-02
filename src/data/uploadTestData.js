@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import testUserData from "./testWorkouts.js";
+import exercises from "./exercises.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAllAim2pin7FeCp_v5GRFg4WQv1iboObI",
@@ -14,8 +15,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function uploadTestData() {
+export async function uploadTestData() {
   await setDoc(doc(db, "testUserData", "Workouts"), testUserData);
 }
 
-export default uploadTestData;
+export async function uploadExerciseCatalog() {
+  const formattedExercises = {};
+  exercises.data.forEach((exercise) => {
+    formattedExercises[exercise.name] = exercise;
+  });
+  await setDoc(doc(db, "exerciseCatalog", "exercises"), formattedExercises);
+}
+
+// export default uploadTestData;

@@ -7,9 +7,13 @@ import { BrowserRouter } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import store from "./app/store";
-import { fetchWorkouts } from "./features/workouts/workoutsSlice";
+import {
+  fetchExerciseCatalog,
+  fetchWorkouts,
+} from "./features/workouts/workoutsSlice";
 
 store.dispatch(fetchWorkouts);
+store.dispatch(fetchExerciseCatalog);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
