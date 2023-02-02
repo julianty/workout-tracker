@@ -1,12 +1,20 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { firebaseApp } from "../../App";
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
 
 export const workoutsSlice = createSlice({
   name: "workouts",
   initialState: {
     test: "test",
     sessions: {},
+    catalog: {},
   },
   reducers: {
     addSession: (state) => {
@@ -14,6 +22,9 @@ export const workoutsSlice = createSlice({
     },
     fetchWorkouts: (state, action) => {
       state.sessions = action.payload;
+    },
+    fetchExerciseCatalog: (state, action) => {
+      state.catalog = action.payload;
     },
     addExercise: (state, action) => {
       const sessionName = action.payload.name;
@@ -72,4 +83,14 @@ export async function fetchWorkouts(dispatch, getState) {
   const response = await getDoc(docRef);
   dispatch({ type: "workouts/fetchWorkouts", payload: response.data() });
 }
+
+export async function fetchExerciseCatalog(dispatch, getState) {
+  const db = getFirestore(firebaseApp);
+  const exerciseCatalog = await getDoc(doc(db, "exerciseCatalog", "exercises"));
+  dispatch({
+    type: "workouts/fetchExerciseCatalog",
+    payload: exerciseCatalog.data(),
+  });
+}
+
 export default workoutsSlice.reducer;

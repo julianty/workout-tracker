@@ -5,11 +5,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 import uniqid from "uniqid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../app/store";
 
 function Exercise(props) {
   let exerciseData = { ...props.exerciseData };
+  const exerciseCatalog = useSelector((state) => state.workouts.catalog);
 
   function onChange(e) {
     const field = e.target.dataset.colname;
@@ -28,7 +29,7 @@ function Exercise(props) {
             onChange={onChange}
             list="exerciseDatabaseList"
           >
-            {["Squat", "Bench Press", "Deadlift"].map((exerciseName, idx) => {
+            {Object.keys(exerciseCatalog).map((exerciseName, idx) => {
               return (
                 <option value={`${exerciseName}`} key={uniqid()}>
                   {exerciseName}
@@ -39,7 +40,6 @@ function Exercise(props) {
         </Col>
         <Col>
           <Form.Control
-            // className="form-control-plaintext"
             type="number"
             data-colname="sets"
             defaultValue={exerciseData.sets}
@@ -48,7 +48,6 @@ function Exercise(props) {
         </Col>
         <Col>
           <Form.Control
-            // className="form-control-plaintext"
             type="number"
             data-colname="reps"
             defaultValue={exerciseData.reps}
@@ -57,7 +56,6 @@ function Exercise(props) {
         </Col>
         <Col>
           <Form.Control
-            // className="form-control-plaintext"
             type="number"
             data-colname="weight"
             defaultValue={exerciseData.weight}

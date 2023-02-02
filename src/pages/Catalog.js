@@ -1,16 +1,12 @@
 import Container from "react-bootstrap/esm/Container.js";
-import exercises from "../data/exercises.js";
 import uniqid from "uniqid";
+import { useSelector } from "react-redux";
 
-function fetchData() {
-  // TODO fetch data from firestore
-  return exercises.data;
-}
 function Catalog() {
-  let exerciseList = fetchData();
+  const exerciseList = useSelector((state) => state.workouts.catalog);
   return (
     <Container className="d-flex flex-column justify-content-start">
-      {exerciseList.map((exercise) => {
+      {Object.values(exerciseList).map((exercise) => {
         return (
           <Container
             key={uniqid()}
@@ -21,11 +17,6 @@ function Catalog() {
             <div className="d-flex align-items-center ms-3">
               <div>Muscles involved: {exercise.muscles.join(", ")}</div>
             </div>
-            {/* {exercise.muscles.map((muscle) => (
-              <div key={uniqid()} className="ms-3">
-                <p>{muscle}</p>
-              </div>
-            ))} */}
           </Container>
         );
       })}
