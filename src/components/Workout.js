@@ -59,7 +59,7 @@ function Exercise(props) {
             type="number"
             data-colname="weight"
             defaultValue={exerciseData.weight}
-            onChange={onChange}
+            onBlur={onChange}
           />
         </Col>
       </Row>
