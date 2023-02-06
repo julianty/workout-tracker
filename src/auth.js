@@ -40,6 +40,10 @@ export const signInWithGoogle = async () => {
   }
 };
 
-// export const logout = () => {
-//   signOut(auth);
-// };
+export const logout = () => {
+  const auth = getAuth(firebaseApp);
+  signOut(auth).then(() => {
+    store.dispatch({ type: "auth/logout" });
+    store.dispatch(fetchWorkouts);
+  });
+};

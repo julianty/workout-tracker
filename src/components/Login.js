@@ -25,6 +25,7 @@ function Login(props) {
       <button className="login__btn login__google" onClick={signInWithGoogle}>
         Login with Google
       </button>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }
