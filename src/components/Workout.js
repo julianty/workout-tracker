@@ -18,12 +18,15 @@ function Exercise(props) {
     exerciseData[field] = newValue;
     props.onChange(props.exerciseIdx, exerciseData);
   }
+  function handleDelete(e) {
+    props.deleteExercise(props.exerciseIdx);
+  }
+
   return (
     <Form>
       <Row>
-        <Col>
+        <Col className="col-6 col-lg">
           <Form.Select
-            className="form-control-plaintext"
             data-colname="exercise"
             defaultValue={exerciseData.exercise}
             onChange={onChange}
@@ -62,6 +65,9 @@ function Exercise(props) {
             onBlur={onChange}
           />
         </Col>
+        <Col>
+          <Button onClick={handleDelete}>Remove</Button>
+        </Col>
       </Row>
     </Form>
   );
@@ -70,7 +76,7 @@ function Exercise(props) {
 function WorkoutHeading() {
   return (
     <Row>
-      <Col>Exercise</Col>
+      <Col className="col-6 col-lg">Exercise</Col>
       <Col>Sets</Col>
       <Col>Reps</Col>
       <Col>Weight</Col>
@@ -87,6 +93,14 @@ function Workout(props) {
     dispatch({ type: "workouts/addExercise", payload: { name: props.name } });
   }
 
+  function deleteExercise(exerciseIdx) {
+    const uid = store.getState().auth.user.uid;
+    dispatch({
+      type: "workouts/deleteExercise",
+      payload: { sessionName: props.name, exerciseIdx: exerciseIdx, uid: uid },
+    });
+  }
+
   function onChange(exerciseIdx, exerciseData) {
     const user = store.getState().auth.user;
     const payload = {
@@ -96,7 +110,7 @@ function Workout(props) {
       uid: user.uid,
     };
     dispatch({
-      type: "workouts/updateWorkouts",
+      type: "workouts/updateExercises",
       payload,
     });
   }
@@ -110,6 +124,7 @@ function Workout(props) {
           exerciseIdx={index}
           exerciseData={exerciseData}
           onChange={onChange}
+          deleteExercise={deleteExercise}
           key={uniqid()}
         />
       ))}

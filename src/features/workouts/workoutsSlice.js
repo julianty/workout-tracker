@@ -1,13 +1,6 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { firebaseApp } from "../../App";
-import {
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  getFirestore,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 
 export const workoutsSlice = createSlice({
   name: "workouts",
@@ -36,6 +29,12 @@ export const workoutsSlice = createSlice({
         weight: "0",
       };
     },
+    deleteExercise: (state, action) => {
+      const sessionName = action.payload.sessionName;
+      const exerciseIdx = action.payload.exerciseIdx;
+      state.sessions[sessionName].exercises.splice(exerciseIdx, 1);
+      updateUserData(current(state.sessions), action.payload.uid);
+    },
     addWorkout: (state) => {
       const sessionName = `testSession${
         Object.values(current(state.sessions)).length + 1
@@ -45,18 +44,25 @@ export const workoutsSlice = createSlice({
         exercises: [],
       };
     },
-    updateWorkouts: (state, action) => {
+    updateExercises: (state, action) => {
       const sessionName = action.payload.sessionName;
       const exerciseIdx = action.payload.exerciseIdx;
       const exerciseData = action.payload.exerciseData;
       state.sessions[sessionName].exercises[exerciseIdx] = exerciseData;
       const updatedExercises = current(state.sessions[sessionName]);
-      updateWorkouts(sessionName, updatedExercises, action.payload.uid);
+      updateExercises(sessionName, updatedExercises, action.payload.uid);
     },
   },
 });
 
-async function updateWorkouts(sessionName, updatedExercises, uid) {
+async function updateUserData(workoutsData, uid) {
+  const db = getFirestore(firebaseApp);
+  if (uid === undefined) return;
+  const docRef = doc(db, "testUserData", uid);
+  updateDoc(docRef, workoutsData);
+}
+
+async function updateExercises(sessionName, updatedExercises, uid) {
   const db = getFirestore(firebaseApp);
   let docRef;
   if (uid === undefined) {
