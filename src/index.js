@@ -12,8 +12,8 @@ import {
   fetchWorkouts,
 } from "./features/workouts/workoutsSlice";
 
-store.dispatch(fetchWorkouts);
 store.dispatch(fetchExerciseCatalog);
+store.dispatch(fetchWorkouts);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
