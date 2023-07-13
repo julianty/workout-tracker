@@ -52,8 +52,20 @@ export const workoutsSlice = createSlice({
       const updatedExercises = current(state.sessions[sessionName]);
       updateExercises(sessionName, updatedExercises, action.payload.uid);
     },
+    addExerciseToCatalog: (state, action) => {
+      const exerciseName = action.payload.exerciseName;
+      const muscleGroups = action.payload.muscleGroups;
+      updateCatalog(exerciseName, muscleGroups);
+    },
   },
 });
+
+async function updateCatalog(exerciseName, muscleGroups) {
+  // Update data
+  const newExercise = { name: exerciseName, muscles: muscleGroups }; // might need to check that muscleGroups is an array
+  const db = getFirestore(firebaseApp);
+  updateDoc(doc(db, "exerciseCatalog", "exercises"), newExercise);
+}
 
 async function updateUserData(workoutsData, uid) {
   const db = getFirestore(firebaseApp);

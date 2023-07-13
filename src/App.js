@@ -33,7 +33,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 function App() {
-  uploadExerciseCatalog();
+  // uploadExerciseCatalog();
   uploadTestData();
   return (
     <div className="App">

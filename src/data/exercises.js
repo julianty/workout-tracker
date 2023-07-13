@@ -29,6 +29,14 @@ var exercises = {
       name: "Dumbbell Deadlift",
       muscles: ["Quadriceps", "Hamstrings"],
     },
+    {
+      name: "Tricep Pulldown",
+      muscles: ["Tricep", "Deltoid", "Lattisimus Dorsi"],
+    },
+    {
+      name: "Seated Pectoral Fly",
+      muscles: ["Pectorals"],
+    },
   ],
 };
 
