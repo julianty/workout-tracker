@@ -1,31 +1,57 @@
 import Container from "react-bootstrap/esm/Container.js";
 import uniqid from "uniqid";
-import { useSelector } from "react-redux";
-import { Row, Col, Form, Button } from "react-bootstrap/";
+import { useDispatch, useSelector } from "react-redux";
+import { Row, Col, Button, FormLabel } from "react-bootstrap/";
+import { Form, Field } from "react-final-form/";
 function Catalog() {
   const exerciseList = useSelector((state) => state.workouts.catalog);
+  const dispatch = useDispatch();
+  const onSubmit = async (values) => {
+    // console.log(values);
+    // Need to add some form validation here
+    dispatch({ type: "workouts/addExerciseToCatalog", payload: values });
+  };
   return (
     <Container className="d-flex flex-column justify-content-start">
       <Row>Add an exercise to the catalog</Row>
       <Row>
         <Col>
-          <Form>
-            <Form.Group>
-              <Form.Label>Exercise Name</Form.Label>
-              <Form.Control type="text" placeholder="Barbell Squat" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Muscles {"(separate with commas)"}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Tricep, Deltoids, Quadriceps"
-              />{" "}
-              {/* */}
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+          <Form
+            onSubmit={onSubmit}
+            render={({ handleSubmit, form }) => {
+              return (
+                <form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col md="auto">
+                      <label>Exercise Name</label>
+                    </Col>
+                    <Col md="auto">
+                      <Field
+                        name="exerciseName"
+                        component="input"
+                        type="text"
+                        placeholder="Barbell Squat"
+                      />
+                    </Col>
+                    <Col md="auto">
+                      <label>Muscles Involed {"(separate with commas)"}</label>
+                    </Col>
+                    <Col md="auto">
+                      <Field
+                        name="muscles"
+                        component="input"
+                        type="text"
+                        placeholder="Quadriceps, Pectorals, Triceps"
+                      />
+                    </Col>
+                    <Col md="2">
+                      <Button type="submit">Submit</Button>
+                    </Col>
+                  </Row>
+                </form>
+              );
+            }}
+          ></Form>
         </Col>
       </Row>
       <Row>

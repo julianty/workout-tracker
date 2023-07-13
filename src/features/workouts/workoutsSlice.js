@@ -54,17 +54,22 @@ export const workoutsSlice = createSlice({
     },
     addExerciseToCatalog: (state, action) => {
       const exerciseName = action.payload.exerciseName;
-      const muscleGroups = action.payload.muscleGroups;
-      updateCatalog(exerciseName, muscleGroups);
+      const muscles = action.payload.muscles.split(",");
+      updateCatalog(exerciseName, muscles);
     },
   },
 });
 
-async function updateCatalog(exerciseName, muscleGroups) {
+async function updateCatalog(exerciseName, muscles) {
   // Update data
-  const newExercise = { name: exerciseName, muscles: muscleGroups }; // might need to check that muscleGroups is an array
+  const newExercise = {};
+  newExercise[exerciseName] = {
+    name: exerciseName,
+    muscles: muscles,
+  }; // might need to check that muscleGroups is an array
   const db = getFirestore(firebaseApp);
   updateDoc(doc(db, "exerciseCatalog", "exercises"), newExercise);
+  console.log(newExercise);
 }
 
 async function updateUserData(workoutsData, uid) {
