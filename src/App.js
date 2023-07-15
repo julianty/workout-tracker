@@ -4,11 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { initializeApp } from "firebase/app";
 
 import Navbar from "./components/navbar";
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Catalog from "./pages/Catalog";
-import Tool from "./pages/Tool";
+import { Outlet } from "react-router-dom";
 
 import { uploadTestData, uploadExerciseCatalog } from "./data/uploadTestData";
 // For some reason the .env file references were interfering with the firebase connection
@@ -38,12 +34,7 @@ function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/tool" element={<Tool />} />
-      </Routes>
+      <Outlet />
     </div>
   );
 }

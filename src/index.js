@@ -3,10 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import store from "./app/store";
+import Catalog from "./pages/Catalog";
+import About from "./pages/About";
+import Tool from "./pages/Tool";
 import {
   fetchExerciseCatalog,
   fetchWorkouts,
@@ -16,13 +19,33 @@ store.dispatch(fetchExerciseCatalog);
 store.dispatch(fetchWorkouts);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/tool",
+        element: <Tool />,
+      },
+      {
+        path: "/catalog",
+        element: <Catalog />,
+      },
+    ],
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
