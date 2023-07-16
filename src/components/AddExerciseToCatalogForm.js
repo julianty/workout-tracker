@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 function AddExerciseToCatalogForm() {
   const dispatch = useDispatch();
   const onSubmit = async (values) => {
-    // console.log(values);
     // Need to add some form validation here
     dispatch({ type: "workouts/addExerciseToCatalog", payload: values });
   };
