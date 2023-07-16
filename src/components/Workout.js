@@ -25,7 +25,7 @@ function Exercise(props) {
   return (
     <Form>
       <Row>
-        <Col className="col-6 col-lg">
+        <Col className="col-6">
           <Form.Select
             data-colname="exercise"
             defaultValue={exerciseData.exercise}
@@ -41,7 +41,7 @@ function Exercise(props) {
             })}
           </Form.Select>
         </Col>
-        <Col>
+        <Col className="col-1">
           <Form.Control
             type="number"
             data-colname="sets"
@@ -49,7 +49,7 @@ function Exercise(props) {
             onChange={onChange}
           />
         </Col>
-        <Col>
+        <Col className="col-1">
           <Form.Control
             type="number"
             data-colname="reps"
@@ -57,7 +57,7 @@ function Exercise(props) {
             onChange={onChange}
           />
         </Col>
-        <Col>
+        <Col className="col-2">
           <Form.Control
             type="number"
             data-colname="weight"
@@ -76,10 +76,10 @@ function Exercise(props) {
 function WorkoutHeading() {
   return (
     <Row>
-      <Col className="col-6 col-lg">Exercise</Col>
-      <Col>Sets</Col>
-      <Col>Reps</Col>
-      <Col>Weight</Col>
+      <Col className="col-6">Exercise</Col>
+      <Col className="col-1">Sets</Col>
+      <Col className="col-1">Reps</Col>
+      <Col className="col-2">Weight</Col>
     </Row>
   );
 }
