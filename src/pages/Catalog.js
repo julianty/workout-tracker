@@ -1,7 +1,14 @@
 import Container from "react-bootstrap/esm/Container.js";
 import uniqid from "uniqid";
 import { useSelector } from "react-redux";
-import { Row, Col, Button, FormLabel } from "react-bootstrap/";
+import {
+  Row,
+  Col,
+  Button,
+  FormLabel,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap/";
 import AddExerciseToCatalogForm from "../components/AddExerciseToCatalogForm";
 function Catalog() {
   const exerciseList = useSelector((state) => state.workouts.catalog);
@@ -14,7 +21,7 @@ function Catalog() {
         </Col>
       </Row>
       <Row>
-        {Object.values(exerciseList).map((exercise) => {
+        {/* {Object.values(exerciseList).map((exercise) => {
           return (
             <Container
               key={uniqid()}
@@ -27,7 +34,16 @@ function Catalog() {
               </div>
             </Container>
           );
-        })}
+        })} */}
+        <ListGroup>
+          {Object.values(exerciseList).map((exercise) => {
+            return (
+              <ListGroupItem key={uniqid()}>
+                {exercise.name}: {exercise.muscles.join(", ")}
+              </ListGroupItem>
+            );
+          })}
+        </ListGroup>
       </Row>
     </Container>
   );
