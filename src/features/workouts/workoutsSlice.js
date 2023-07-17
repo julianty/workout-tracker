@@ -61,16 +61,40 @@ export const workoutsSlice = createSlice({
         name: exerciseName,
         muscles: muscles,
       }; // might need to check that muscleGroups is an array
-      updateFirestoreCatalog(newExercise);
+      addExerciseToFirebaseCatalog(newExercise);
+    },
+    updateExerciseInCatalog: (state, action) => {
+      const exerciseName = action.payload.exerciseName;
+      const muscles = action.payload.muscles.split(",");
+      state.catalog[exerciseName] = { name: exerciseName, muscles: muscles };
+      const updatedExercise = {};
+      updatedExercise[exerciseName] = {
+        name: exerciseName,
+        muscles: muscles,
+      };
     },
   },
 });
 
-async function updateFirestoreCatalog(newExercise) {
+async function addExerciseToFirebaseCatalog(newExercise) {
   // Update data
   const db = getFirestore(firebaseApp);
   updateDoc(doc(db, "exerciseCatalog", "exercises"), newExercise);
   console.log(newExercise);
+}
+
+async function updateExerciseInFirebaseCatalog(exerciseName, updatedExercise) {
+  // Takes the existing exerciseName as in the firebase catalog and
+  // the updatedExercise object to delete the existing entry on Firebase
+  // and replace it with an updated one
+  const db = getFirestore(firebaseApp);
+  const docRef = doc(db, "exerciseCatalog", "exercises");
+
+  // Delete field
+  await updateDoc(docRef, { exerciseName }.deleteField());
+
+  // Add updated field
+  await addExerciseToFirebaseCatalog(updatedExercise);
 }
 
 async function updateUserData(workoutsData, uid) {
