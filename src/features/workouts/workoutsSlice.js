@@ -1,6 +1,12 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { firebaseApp } from "../../App";
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+  deleteField,
+} from "firebase/firestore";
 
 export const workoutsSlice = createSlice({
   name: "workouts",
@@ -67,16 +73,20 @@ export const workoutsSlice = createSlice({
       const exerciseName = action.payload.exerciseName;
       const updatedExerciseName = action.payload.updatedExerciseName;
       const muscles = action.payload.muscles.split(",");
+      // First delete entry in catalog
       delete state.catalog[exerciseName];
+      // Then replace it with the updated name and muscles
       state.catalog[updatedExerciseName] = {
         name: updatedExerciseName,
         muscles: muscles,
       };
+      // Prepare the exercise object to update on Firestore
       const updatedExercise = {};
       updatedExercise[updatedExerciseName] = {
         name: updatedExerciseName,
         muscles: muscles,
       };
+      updateExerciseInFirebaseCatalog(exerciseName, updatedExercise);
     },
   },
 });
@@ -96,7 +106,7 @@ async function updateExerciseInFirebaseCatalog(exerciseName, updatedExercise) {
   const docRef = doc(db, "exerciseCatalog", "exercises");
 
   // Delete field
-  await updateDoc(docRef, { exerciseName }.deleteField());
+  await updateDoc(docRef, { exerciseName: deleteField() });
 
   // Add updated field
   await addExerciseToFirebaseCatalog(updatedExercise);
