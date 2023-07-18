@@ -24,22 +24,25 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
           onSubmit={onSubmit}
           render={({ handleSubmit, form }) => {
             return (
-              <form onSubmit={handleSubmit}>
-                <label>Exercise Name:</label>
+              <form
+                onSubmit={handleSubmit}
+                className="d-flex align-items-center"
+              >
+                <label className="m-1">Exercise Name:</label>
                 <Field
                   name="updatedExerciseName"
                   component="input"
                   type="text"
                   defaultValue={exerciseName}
                 />
-                <label>Muscles</label>
+                <label className="m-1">Muscles</label>
                 <Field
                   name="muscles"
                   component="input"
                   type="text"
                   defaultValue={muscles.join(", ")}
                 ></Field>
-                <Button type="submit" size="sm">
+                <Button type="submit" size="sm" className="ms-auto">
                   Save Changes
                 </Button>
               </form>
@@ -50,9 +53,10 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
     );
   } else {
     return (
-      <ListGroupItem>
-        {exerciseName}: {muscles.join(", ")}
-        <Badge onClick={handleClick} pill bg="secondary">
+      <ListGroupItem className="d-flex">
+        <div className="text-body mx-1">{exerciseName}:</div>
+        <div className="text-secondary mx-1">{muscles.join(", ")}</div>
+        <Badge onclick={handleClick} pill bg="secondary" className="ms-auto">
           edit
         </Badge>
       </ListGroupItem>
