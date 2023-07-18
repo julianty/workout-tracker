@@ -10,6 +10,7 @@ import store from "./app/store";
 import Catalog from "./pages/Catalog";
 import About from "./pages/About";
 import Tool from "./pages/Tool";
+import Home from "./pages/Home";
 import {
   fetchExerciseCatalog,
   fetchWorkouts,
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
       {
         path: "/about",
         element: <About />,
