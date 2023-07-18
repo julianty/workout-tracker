@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # hosting cache
-/.firebase/*
-.firebase/hosting.*.cache
+/.firebase/**
+# .firebase/hosting.*.cache
 firebase-debug.log
+# .firebase/hosting.YnVpbGQ.cache
