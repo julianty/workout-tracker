@@ -8,8 +8,10 @@ import {
   FormLabel,
   ListGroup,
   ListGroupItem,
+  Badge,
 } from "react-bootstrap/";
 import AddExerciseToCatalogForm from "../components/AddExerciseToCatalogForm";
+import CatalogedExercise from "../components/CatalogedExercise";
 function Catalog() {
   const exerciseList = useSelector((state) => state.workouts.catalog);
   return (
@@ -21,26 +23,14 @@ function Catalog() {
         </Col>
       </Row>
       <Row>
-        {/* {Object.values(exerciseList).map((exercise) => {
-          return (
-            <Container
-              key={uniqid()}
-              className="d-flex flex-column"
-              style={{ textAlign: "left" }}
-            >
-              <h3>{exercise.name}</h3>
-              <div className="d-flex align-items-center ms-3">
-                <div>Muscles involved: {exercise.muscles.join(", ")}</div>
-              </div>
-            </Container>
-          );
-        })} */}
         <ListGroup>
           {Object.values(exerciseList).map((exercise) => {
             return (
-              <ListGroupItem key={uniqid()}>
-                {exercise.name}: {exercise.muscles.join(", ")}
-              </ListGroupItem>
+              <CatalogedExercise
+                key={uniqid()}
+                exerciseName={exercise.name}
+                muscles={exercise.muscles}
+              />
             );
           })}
         </ListGroup>

@@ -65,11 +65,16 @@ export const workoutsSlice = createSlice({
     },
     updateExerciseInCatalog: (state, action) => {
       const exerciseName = action.payload.exerciseName;
+      const updatedExerciseName = action.payload.updatedExerciseName;
       const muscles = action.payload.muscles.split(",");
-      state.catalog[exerciseName] = { name: exerciseName, muscles: muscles };
+      delete state.catalog[exerciseName];
+      state.catalog[updatedExerciseName] = {
+        name: updatedExerciseName,
+        muscles: muscles,
+      };
       const updatedExercise = {};
-      updatedExercise[exerciseName] = {
-        name: exerciseName,
+      updatedExercise[updatedExerciseName] = {
+        name: updatedExerciseName,
         muscles: muscles,
       };
     },
