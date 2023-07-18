@@ -1,8 +1,13 @@
-import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Card,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 
 import uniqid from "uniqid";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +29,7 @@ function Exercise(props) {
 
   return (
     <Form>
-      <Row>
+      <Row className="p-0">
         <Col className="col-6">
           <Form.Select
             data-colname="exercise"
@@ -117,18 +122,28 @@ function Workout(props) {
 
   return (
     <Container>
-      <h4>{timestamp.toDateString()}</h4>
-      <WorkoutHeading />
-      {exercisesArr.map((exerciseData, index) => (
-        <Exercise
-          exerciseIdx={index}
-          exerciseData={exerciseData}
-          onChange={onChange}
-          deleteExercise={deleteExercise}
-          key={uniqid()}
-        />
-      ))}
-      <Button onClick={addNewExercise}>Add exercise</Button>
+      <Card className="my-3">
+        <Card.Header>{timestamp.toDateString()}</Card.Header>
+        <WorkoutHeading />
+        <ListGroup>
+          {exercisesArr.map((exerciseData, index) => (
+            <ListGroupItem>
+              <Exercise
+                exerciseIdx={index}
+                exerciseData={exerciseData}
+                onChange={onChange}
+                deleteExercise={deleteExercise}
+                key={uniqid()}
+              />
+            </ListGroupItem>
+          ))}
+          <ListGroupItem className="d-flex">
+            <Button className="mx-auto" onClick={addNewExercise}>
+              Add exercise
+            </Button>
+          </ListGroupItem>
+        </ListGroup>
+      </Card>
     </Container>
   );
 }

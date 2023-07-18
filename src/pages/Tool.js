@@ -1,9 +1,5 @@
 import Workout from "../components/Workout";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import uniqid from "uniqid";
 
@@ -32,8 +28,8 @@ function Tool(props) {
 
   return (
     <Container>
-      <Row className="mt-2">{generateWorkoutDOM()}</Row>
-      <Row className="mt-2">
+      <Row className="">{generateWorkoutDOM()}</Row>
+      <Row className="">
         <Col className="col-3">
           <Button onClick={addWorkout}>Add workout</Button>
         </Col>
