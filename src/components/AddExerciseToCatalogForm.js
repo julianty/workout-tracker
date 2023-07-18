@@ -12,26 +12,24 @@ function AddExerciseToCatalogForm() {
       onSubmit={onSubmit}
       render={({ handleSubmit, form }) => {
         return (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label className="mx-2">Exercise Name</label>
-              <Field
-                name="exerciseName"
-                component="input"
-                type="text"
-                placeholder="Barbell Squat"
-              />
-            </div>
-            <div>
-              <label>Muscles Involed</label>
-              <Field
-                name="muscles"
-                component="input"
-                type="text"
-                placeholder="Quadriceps, Pectorals, Triceps"
-              />
-            </div>
-            <Button type="submit">Submit</Button>
+          <form onSubmit={handleSubmit} className="d-flex align-items-center">
+            <label className="m-1">Exercise Name:</label>
+            <Field
+              name="updatedExerciseName"
+              component="input"
+              type="text"
+              placeholder="Barbell Squat"
+            />
+            <label className="m-1">Muscles</label>
+            <Field
+              name="muscles"
+              component="input"
+              type="text"
+              placeholder="Quadriceps, Pectorals, Triceps"
+            ></Field>
+            <Button type="submit" size="sm" className="ms-auto">
+              Add New Exercise
+            </Button>
           </form>
         );
       }}

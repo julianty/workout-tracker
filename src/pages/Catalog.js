@@ -16,10 +16,13 @@ function Catalog() {
   const exerciseList = useSelector((state) => state.workouts.catalog);
   return (
     <Container className="d-flex flex-column justify-content-start">
-      <Row>Add an exercise to the catalog</Row>
+      <Row>
+        <h1> Exercise Catalog</h1>
+      </Row>
       <Row>
         <Col>
-          <AddExerciseToCatalogForm />
+          These are the workouts that exist in the catalog. You can add a new
+          one with the form in the bottom.
         </Col>
       </Row>
       <Row>
@@ -33,6 +36,9 @@ function Catalog() {
               />
             );
           })}
+          <ListGroupItem>
+            <AddExerciseToCatalogForm />
+          </ListGroupItem>
         </ListGroup>
       </Row>
     </Container>

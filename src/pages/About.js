@@ -5,7 +5,9 @@ import Col from "react-bootstrap/esm/Col";
 function About() {
   return (
     <Container>
-      <h1>About Page</h1>
+      <Row>
+        <h1>About Page</h1>
+      </Row>
       <Row>
         <Col>
           This tool is meant as a easy way to track my workouts and hopefully

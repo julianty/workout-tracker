@@ -56,7 +56,7 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
       <ListGroupItem className="d-flex">
         <div className="text-body mx-1">{exerciseName}:</div>
         <div className="text-secondary mx-1">{muscles.join(", ")}</div>
-        <Badge onclick={handleClick} pill bg="secondary" className="ms-auto">
+        <Badge onClick={handleClick} pill bg="secondary" className="ms-auto">
           edit
         </Badge>
       </ListGroupItem>

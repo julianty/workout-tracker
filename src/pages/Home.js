@@ -4,7 +4,9 @@ import Col from "react-bootstrap/esm/Col";
 function Home() {
   return (
     <Container>
-      <h1>Home Page</h1>
+      <Row>
+        <h1>Home Page</h1>
+      </Row>
       <Row>
         <Col>
           Welcome to the workout tracker I've been working on. Please let me
