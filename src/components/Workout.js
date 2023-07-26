@@ -70,7 +70,7 @@ function Exercise(props) {
             onBlur={onChange}
           />
         </Col>
-        <Col>
+        <Col className="d-flex justify-content-end">
           <Button onClick={handleDelete}>Remove</Button>
         </Col>
       </Row>
@@ -138,9 +138,7 @@ function Workout(props) {
             </ListGroupItem>
           ))}
           <ListGroupItem className="d-flex">
-            <Button className="mx-auto" onClick={addNewExercise}>
-              Add exercise
-            </Button>
+            <Button onClick={addNewExercise}>Add exercise</Button>
           </ListGroupItem>
         </ListGroup>
       </Card>
