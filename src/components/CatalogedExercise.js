@@ -2,7 +2,15 @@ import { ListGroupItem, Badge, Button } from "react-bootstrap";
 import { useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch } from "react-redux";
+import MuscleTag from "./MuscleTag";
+import uniqid from "uniqid";
+
 export default function CatalogedExercise({ exerciseName, muscles }) {
+  // exerciseName: string
+  // e.g. "Sumo Deadlift"
+  // muscles: Array of strings containing muscles
+  // e.g. ["Quadriceps", "Pectorals"]
+
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   function handleClick() {
@@ -55,7 +63,10 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
     return (
       <ListGroupItem className="d-flex">
         <div className="text-body mx-1">{exerciseName}:</div>
-        <div className="text-secondary mx-1">{muscles.join(", ")}</div>
+        {muscles.map((muscle) => {
+          console.log(muscles);
+          return <MuscleTag muscleGroup={muscle} key={uniqid()} />;
+        })}
         <Badge onClick={handleClick} pill bg="secondary" className="ms-auto">
           edit
         </Badge>
