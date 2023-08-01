@@ -1,6 +1,9 @@
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+
+import Tool from "./Tool";
+
 function Home() {
   return (
     <Container>
@@ -13,6 +16,9 @@ function Home() {
           know if you have any feature suggestions, bugs you encouter, layout
           improvements etc.
         </Col>
+      </Row>
+      <Row>
+        <Tool />
       </Row>
     </Container>
   );

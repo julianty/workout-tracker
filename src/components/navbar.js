@@ -18,9 +18,6 @@ function BasicExample() {
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
-            <Nav.Link as={Link} to="/tool">
-              Tool
-            </Nav.Link>
             <Nav.Link as={Link} to="/catalog">
               Catalog
             </Nav.Link>
