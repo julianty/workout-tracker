@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import Catalog from "./pages/Catalog";
 import About from "./pages/About";
-import Tool from "./pages/Tool";
 import Home from "./pages/Home";
 import {
   fetchExerciseCatalog,
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
-      },
-      {
-        path: "/tool",
-        element: <Tool />,
       },
       {
         path: "/catalog",

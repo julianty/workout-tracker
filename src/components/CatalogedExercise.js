@@ -4,6 +4,7 @@ import { Form, Field } from "react-final-form";
 import { useDispatch } from "react-redux";
 import MuscleTag from "./MuscleTag";
 import uniqid from "uniqid";
+import { muscleGroups } from "../data/muscleGroups";
 
 export default function CatalogedExercise({ exerciseName, muscles }) {
   // exerciseName: string
@@ -13,17 +14,38 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
 
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
+  const [musclesInvolved, setMusclesInvolved] = useState(muscles);
+
   function handleClick() {
     // Enter edit mode
     setEditMode(true);
   }
+  function handleClickMuscleTag(muscleName) {
+    // Called when any muscle tag is clicked in edit mode, it deletes the
+    // muscle in the musclesInvolved array. It does not save changes.
+    // Changes are saved onSubmit.
+
+    setMusclesInvolved((musclesInvolved) => {
+      return musclesInvolved.filter((listMuscle) => listMuscle !== muscleName);
+    });
+  }
   function onSubmit(values) {
+    // Inputs: values = {newExerciseName: <user input string>}
+    // Outputs: none
+    // dispatches an action to upload changes to the Firestore
+
     console.log("Changes submitted");
     const payload = values;
+    console.log(musclesInvolved);
+    payload["muscles"] = musclesInvolved;
     payload["exerciseName"] = exerciseName;
     dispatch({ type: "workouts/updateExerciseInCatalog", payload: payload });
-    // console.log(payload);
     setEditMode(false);
+  }
+
+  function musclesOnChangeHandler(e) {
+    e.preventDefault();
+    setMusclesInvolved((oldArr) => [...oldArr, e.target.value]);
   }
   if (editMode) {
     return (
@@ -46,10 +68,22 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
                 <label className="m-1">Muscles</label>
                 <Field
                   name="muscles"
-                  component="input"
-                  type="text"
-                  defaultValue={muscles.join(", ")}
-                ></Field>
+                  component="select"
+                  onChange={musclesOnChangeHandler}
+                >
+                  <option value="/">Select A Muscle</option>
+                  {Object.values(muscleGroups).map((muscleObj) => {
+                    if (musclesInvolved.includes(muscleObj.name)) {
+                      return;
+                    } else {
+                      return (
+                        <option key={uniqid()} value={muscleObj.name}>
+                          {muscleObj.name}
+                        </option>
+                      );
+                    }
+                  })}
+                </Field>
                 <Button type="submit" size="sm" className="ms-auto">
                   Save Changes
                 </Button>
@@ -57,15 +91,31 @@ export default function CatalogedExercise({ exerciseName, muscles }) {
             );
           }}
         ></Form>
+
+        {musclesInvolved.map((muscle) => {
+          return (
+            <MuscleTag
+              muscleGroup={muscle}
+              key={uniqid()}
+              editMode={editMode}
+              onClick={handleClickMuscleTag}
+            />
+          );
+        })}
       </ListGroupItem>
     );
   } else {
     return (
       <ListGroupItem className="d-flex">
         <div className="text-body mx-1">{exerciseName}:</div>
-        {muscles.map((muscle) => {
-          console.log(muscles);
-          return <MuscleTag muscleGroup={muscle} key={uniqid()} />;
+        {musclesInvolved.map((muscle) => {
+          return (
+            <MuscleTag
+              muscleGroup={muscle}
+              key={uniqid()}
+              editMode={editMode}
+            />
+          );
         })}
         <Badge onClick={handleClick} pill bg="secondary" className="ms-auto">
           edit

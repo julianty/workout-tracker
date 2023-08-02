@@ -60,7 +60,8 @@ export const workoutsSlice = createSlice({
     },
     addExerciseToCatalog: (state, action) => {
       const exerciseName = action.payload.exerciseName;
-      const muscles = action.payload.muscles.split(",");
+      // const muscles = action.payload.muscles.split(",");
+      const muscles = action.payload.muscles;
       state.catalog[exerciseName] = { name: exerciseName, muscles: muscles };
       const newExercise = {};
       newExercise[exerciseName] = {
@@ -70,9 +71,11 @@ export const workoutsSlice = createSlice({
       addExerciseToFirebaseCatalog(newExercise);
     },
     updateExerciseInCatalog: (state, action) => {
+      // Expects an action.payload object with format
+      //     {exerciseName:string, muscles:[string, string, ...]}
       const exerciseName = action.payload.exerciseName;
       const updatedExerciseName = action.payload.updatedExerciseName;
-      const muscles = action.payload.muscles.split(",");
+      const muscles = action.payload.muscles;
       // First delete entry in catalog
       delete state.catalog[exerciseName];
       // Then replace it with the updated name and muscles
